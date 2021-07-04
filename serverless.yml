@@ -25,14 +25,37 @@ provider:
   region: sa-east-1
 
 functions:
-  hello:
-    handler: src/functions/hello.handle
+  create:
+    handler: src/functions/createeEmployees.handle
     events:
       - http:
-          path: /hello
-          method: GET
+          path: /createEmployees
+          method: /POST
           cors: true
 
+  list:
+    handler: src/functons/listEmployees.handle
+    events:
+      - http:
+          path: /listEmployes:{id}
+          method: /GET
+          cors: true
+
+  update:
+    handler: src/functions/updateEmployees
+    events:
+      - http:
+          path: /UpdateEmployees/{id}
+          method: put
+          cors: true
+
+  delete:
+    handler: src/functions/deleteEmployees
+    events:
+      - http:
+          path: employees/{id}
+          method: delete
+          cors: true
 resources:
   Resources:
     dbEmployee:
