@@ -46,7 +46,7 @@ functions:
     events:
       - http:
           path: /UpdateEmployees/{id}
-          method: put
+          method: /PUT
           cors: true
 
   delete:
@@ -54,7 +54,7 @@ functions:
     events:
       - http:
           path: employees/{id}
-          method: delete
+          method: /DELETE
           cors: true
 resources:
   Resources:

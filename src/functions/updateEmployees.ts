@@ -1,30 +1,30 @@
 import { document } from "src/utils/dynamoDdClient";
-import 'src/functions/createEmployees';
+import { CreateEmployeesDTO } from "src/functions/dto/createEmployeeDTO";
+
 export const handle = async (event) => {
   const { id } = event.pathParameters;
-  const response = await document
+  const { name, age, role } = JSON.parse(event.body) as CreateEmployeesDTO;
+
+  await document
     .update({
       TableName: "employees",
-      Key:"id =:id",
+      Key: {
+        id: id,
+      },
+
       ExpressionAttributeValues: {
-    
+        name,
+        age,
+        role,
+      },
+      ReturnValues: "UPDATE_NEW",
     })
     .promise();
 
-  const employeExist = response.Items[0];
-
-  if (employeExist) {
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        name: employeExist.name,
-      }),
-    };
-  }
   return {
-    statusCode: 400,
-    body: {
-      message: "employee does not exists",
-    },
+    statusCode: 200,
+    body: JSON.stringify({
+      message: "Employee updated",
+    }),
   };
 };

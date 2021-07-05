@@ -1,13 +1,8 @@
 import { document } from "../utils/DynamoDdClient";
+import { CreateEmployeesDTO } from "src/functions/dto/createEmployeeDTO";
 
-interface ICreateEmployees {
-  id: string;
-  name: string;
-  age: number;
-  role: string;
-}
 export const handle = async (event) => {
-  const { id, name, age, role } = JSON.parse(event.body) as ICreateEmployees;
+  const { id, name, age, role } = JSON.parse(event.body) as CreateEmployeesDTO;
 
   await document
     .put({
@@ -24,7 +19,7 @@ export const handle = async (event) => {
   return {
     statusCode: 201,
     body: JSON.stringify({
-      message: "Employee created",
+      message: "Employe created",
     }),
     headers: {
       "Content-type": "application/json",
